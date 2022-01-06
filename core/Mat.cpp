@@ -975,21 +975,29 @@ void Mat::clear() {
     val = vector<ll128>(r * c);
 }
 
+void Mat::print(string name) const {
+    DBGprint("Mat %s ", name.c_str());
+    this->print();
+}
+
 void Mat::print() const {
     DBGprint("r: %d c: %d\n", r, c);
     if (c == 1) {
         for (int i = 0; i < r; i++) {
-            DBGprint("%lld ", (ll) get(i, 0));
+            // DBGprint("%lld ", (ll) get(i, 0));
+            std::cout << get(i, 0) << " ";
         }
         DBGprint("\n");
         return;
     }
     for (int i = 0; i < r; i++) {
         for (int j = 0; j < c; j++) {
-            DBGprint("%lld ", (ll) get(i, j));
+            // DBGprint("%lld ", (ll) get(i, j));
+            std::cout << get(i, 0) << " ";
         }
         DBGprint("\n");
     }
+    DBGprint("\n");
 }
 
 void Mat::printSign() {

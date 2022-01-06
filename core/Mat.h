@@ -98,6 +98,7 @@ public:
     void constant(double b);
     void col(int u, vector<ll128>& a);
     void clear();
+    void print(string name) const;
     void print() const;
     void printSign();
     void toString(char* p);

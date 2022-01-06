@@ -34,7 +34,7 @@ void Player::init() {
         }
     }
     DBGprint("init midway\n");
-    vandermonde.print();
+    vandermonde.print("vandermonde");
     for (int i = 0; i < M; i++) {
         lagrange[i] = 1;
         for (int j = 0; j < M; j++)
@@ -160,7 +160,7 @@ void Player::init() {
 //    for (int i = 0; i < BIT_LENGTH; i++)
 //        bit_p[i] = MOD >> i & 1;
 
-    DBGprint("init complete\n");
+    DBGprint("init complete\n\n");
 }
 
 Mat Player::getMetadata() {
