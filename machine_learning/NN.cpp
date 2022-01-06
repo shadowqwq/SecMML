@@ -25,7 +25,7 @@ NN& NN::operator=(NN &a) {
 void NN::global_variables_initializer() {
     DBGprint("tot: %d\n",tot);
     for (int i = 1; i <= tot; i++) {
-        DBGprint("%d\n",i);
+        // DBGprint("%d\n",i);
         if (neuron[i]->getForward() == nullptr) {
             neuron[i]->initForward();
         }
@@ -80,6 +80,11 @@ void NN::output_init() {
 void NN::addedge(int u, int v) {
     adj[u].push_back(v);
     to[v]++;
+}
+
+int NN::addnode(int r, int c, int k, string name) {
+    cout << name << "\t";
+    return addnode(r, c, k);
 }
 
 int NN::addnode(int r, int c, int k) {

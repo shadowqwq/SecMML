@@ -32,6 +32,7 @@ public:
     void output_init(int u);
     void output_init();
     void addedge(int u, int v);
+    int addnode(int r, int c, int k, string name);
     int addnode(int r, int c, int k);
     NeuronMat* getNeuron(int u);
     void setOp(int u, Op* op);

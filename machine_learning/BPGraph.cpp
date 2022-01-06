@@ -20,22 +20,22 @@ BPGraph::LR::LR(Mat *train_data, Mat *train_label, Mat *test_data, Mat *test_lab
 void BPGraph::LR::graph() {
     int hidden_num = 10;
     int output_num = 1;
-    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT);
-    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT);
+    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT, "input");
+    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT, "output");
     // todo 添加正态随机分布的权重初始化值
-    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET);
-    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
+    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET, "st_w");
+    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP, "st_mul");
 
-   nd_hidden = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
-   nd_b = nn->addnode(1, B, NeuronMat::NODE_NET);
-   nd_add = nn->addnode(hidden_num+1, B, NeuronMat::NODE_OP);
-   nd_w = nn->addnode(output_num, hidden_num+1, NeuronMat::NODE_NET);
+   nd_hidden = nn->addnode(hidden_num, B, NeuronMat::NODE_OP, "nd_hidden");
+   nd_b = nn->addnode(1, B, NeuronMat::NODE_NET, "nd_b");
+   nd_add = nn->addnode(hidden_num+1, B, NeuronMat::NODE_OP, "nd_add");
+   nd_w = nn->addnode(output_num, hidden_num+1, NeuronMat::NODE_NET, "nd_w");
     // nd_mul = nn->addnode(1, B, NeuronMat::NODE_OP);
 //    activation = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
-    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP);
+    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP, "out_sig");
 //    activation_out = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
-    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP);
-    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP);
+    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP, "sd");
+    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP, "argmax");
     DBGprint("initializing!\n");
     nn->global_variables_initializer();
     DBGprint("initialized!\n");
@@ -73,15 +73,15 @@ void BPGraph::LR::linear_graph() {
     DBGprint("Linear Regression constructor\n");
     int hidden_num = 1;
     int output_num = 1;
-    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT);
-    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT);
+    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT, "input");
+    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT, "output");
     // todo 添加正态随机分布的权重初始化值
-    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET);
-    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
+    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET, "st_w");
+    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP, "st_mul");
 
-    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP);
-    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP);
-    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP);
+    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP, "out_sig");
+    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP, "sd");
+    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP, "argmax");
 
     DBGprint("initializing!\n");
     nn->global_variables_initializer();
@@ -121,15 +121,15 @@ void BPGraph::LR::logistic_graph() {
     DBGprint("Logistic Regression constructor\n");
     int hidden_num = 1;
     int output_num = 1;
-    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT);
-    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT);
+    input = nn->addnode(D+1, B, NeuronMat::NODE_INPUT, "input");
+    output = nn->addnode(output_num, B, NeuronMat::NODE_INPUT, "output");
     // todo 添加正态随机分布的权重初始化值
-    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET);
-    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP);
+    st_w = nn->addnode(hidden_num, D+1, NeuronMat::NODE_NET, "st_w");
+    st_mul = nn->addnode(hidden_num, B, NeuronMat::NODE_OP, "st_mul");
 
-    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP);
-    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP);
-    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP);
+    out_sig = nn->addnode(output_num, B, NeuronMat::NODE_OP, "out_sig");
+    int sd = nn->addnode(1, 1, NeuronMat::NODE_OP, "sd");
+    argmax = nn->addnode(1, 1, NeuronMat::NODE_OP, "argmax");
 
     DBGprint("initializing!\n");
     nn->global_variables_initializer();
@@ -238,7 +238,7 @@ void BPGraph::LR::print_perd(int round) {
             tot_recv += socket_io[node_type][i]->recv_num;
         }
     }
-    DBGprint("round: %d tot_time: %.3f ",
-             round, clock_train->get());
+    DBGprint("round: %d tot_time: %.3f throughput: %.2fit/s ",
+             round, clock_train->get(), round / clock_train->get());
     DBGprint("tot_send: %lld tot_recv: %lld\n", tot_send, tot_recv);
 }
